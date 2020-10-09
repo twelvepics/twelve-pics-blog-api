@@ -1,0 +1,26 @@
+{
+  "name": "twelve-pics-blog-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "env-cmd -f ./config/prod.env node ./bin/www",
+    "dev": "env-cmd -f ./config/dev.env nodemon node ./bin/www",
+    "test": "env-cmd -f ./config/test.env jest --watchAll --runInBand"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "arangojs": "^7.0.2",
+    "axios": "^0.20.0",
+    "bcrypt": "^5.0.0",
+    "bull": "^3.18.0",
+    "cookie-parser": "~1.4.5",
+    "cors": "^2.8.5",
+    "debug": "~4.2.0",
+    "env-cmd": "^10.1.0",
+    "express": "~4.17.1",
+    "morgan": "~1.10.0",
+    "nodemailer": "^6.4.13",
+    "winston": "^3.3.3",
+    "winston-transport": "^4.4.0"
+  }
+}
