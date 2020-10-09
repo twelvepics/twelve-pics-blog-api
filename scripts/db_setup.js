@@ -2,10 +2,10 @@
 // ../node_modules/.bin/env-cmd  -f "../config/dev.env"  node db_setup.js
 ////////////////////////////////////////////////////////////////////////////////////////
 
-const arango = require('arangojs');
+const arango = require("arangojs");
 const Database = arango.Database;
 
-const sysdb = new Database('http://127.0.0.1:8529');
+const sysdb = new Database("http://127.0.0.1:8529");
 sysdb.useBasicAuth(process.env.DB_USER, process.env.DB_PASSWORD);
 const db = sysdb.database(process.env.DB_NAME);
 
@@ -23,27 +23,27 @@ const db = sysdb.database(process.env.DB_NAME);
 ///////////////////////////////////////
 
 const createCollection = async (name) => {
-    const collection = db.collection(name);
-    try {
-        const res = await collection.create({
-            keyOptions: {
-                type: 'uuid',
-            },
-            allowUserKeys: false,
-        });
-        return res;
-    } catch (err) {
-        return { err: `Error: ${err.message}` };
-    }
+  const collection = db.collection(name);
+  try {
+    const res = await collection.create({
+      keyOptions: {
+        type: "uuid",
+      },
+      allowUserKeys: false,
+    });
+    return res;
+  } catch (err) {
+    return { err: `Error: ${err.message}` };
+  }
 };
 
 // create all required collections
 const collections = [
-    'subscribers',
-    'logs_api',
-    'email_confirm',
-    'subscribers_events',
-    'logs_tasks',
+  "subscribers",
+  "logs_api",
+  "email_confirm",
+  "subscribers_events",
+  "logs_tasks",
 ];
 // const collections = ['logs_api', 'logs_tasks']
 
@@ -53,29 +53,29 @@ const collections = [
 // result indicates whether the collection exists
 
 const createAllCollections = async (list) => {
-    try {
-        collections.forEach(async (col) => {
-            // console.log(col)
-            let collection = await createCollection(col);
-            console.log(collection.name);
-        });
-        return 'OK';
-    } catch (err) {
-        console.log(err);
-        return { err: `Error: ${err.message}` };
-    }
+  try {
+    collections.forEach(async (col) => {
+      // console.log(col)
+      let collection = await createCollection(col);
+      console.log(collection.name);
+    });
+    return "OK";
+  } catch (err) {
+    console.log(err);
+    return { err: `Error: ${err.message}` };
+  }
 };
-// createAllCollections(collections)
+createAllCollections(collections);
 
 ///////////////////////////////////////
 // list collections
 ///////////////////////////////////////
 const listCollections = async () => {
-    const l = await db.listCollections();
-    return l;
+  const l = await db.listCollections();
+  return l;
 };
 listCollections().then((colls) => {
-    colls.map((coll) => console.log(coll.name));
+  colls.map((coll) => console.log(coll.name));
 });
 
 // create indexes
@@ -86,4 +86,4 @@ listCollections().then((colls) => {
 //   fields: ["a", "a.b"]
 // });
 // the index has been created with the handle `index.id`
-console.log("-- YOLO --")
+console.log("-- YOLO --");
