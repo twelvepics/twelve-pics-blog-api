@@ -28,7 +28,7 @@ const sendValidateEmail = async (subscriber) => {
     subscriber._key
   );
   const front_url = process.env.FRONT_URL;
-  const validate_url = `${front_url}/email-confirm?confirmId=${validateEmailEntry._key}`;
+  const validate_url = `${front_url}/email-confirm/?confirmId=${validateEmailEntry._key}`;
   // build message I'm sending
   const message = confirmEmailMessage(subscriber.email, validate_url);
   // console.log(message);
@@ -62,6 +62,8 @@ const sendErrorMessage = async (error) => {
 };
 
 const createSubscriber = async (subscriberData, req) => {
+  // simulate network wait
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
   // validate -------------------------------------------------------------
   const validSubscriber = await validateSubscriber(subscriberData);
   await subscribersdb.fieldToLowerExists("email", validSubscriber.email);
